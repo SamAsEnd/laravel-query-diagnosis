@@ -1,0 +1,59 @@
+{
+    "name": "samasend/laravel-query-diagnosis",
+    "description": "This is a Laravel package that detects and reports unoptimized database queries by leveraging the database's EXPLAIN feature.",
+    "keywords": [
+        "laravel",
+        "database",
+        "elouquent",
+        "query",
+        "laravel-query-diagnosis"
+    ],
+    "type": "library",
+    "homepage": "https://github.com/samasend/laravel-query-diagnosis",
+    "support": {
+        "issues": "https://github.com/samasend/laravel-query-diagnosis/issues",
+        "source": "https://github.com/samasend/laravel-query-diagnosis"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Samson Endale",
+            "email": "hi@sam.et",
+            "homepage": "https://sam.et",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^9.0 || ^10.0"
+    },
+    "require-dev": {
+        "laravel/legacy-factories": "^1.0",
+        "orchestra/testbench": "^6.0 || ^8.0",
+        "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SamAsEnd\\QueryDiagnosis\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SamAsEnd\\QueryDiagnosis\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SamAsEnd\\QueryDiagnosis\\QueryDiagnosisServiceProvider"
+            ]
+        }
+    }
+}
