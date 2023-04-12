@@ -56,7 +56,10 @@
         "laravel": {
             "providers": [
                 "SamAsEnd\\QueryDiagnosis\\QueryDiagnosisServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "QueryDiagnosis": "SamAsEnd\\QueryDiagnosis\\Facades\\QueryDiagnosis"
+            }
         }
     }
 }

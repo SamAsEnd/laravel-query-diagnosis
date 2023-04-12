@@ -7,11 +7,8 @@ use Illuminate\Support\Collection;
 
 class SelectTypeContainsDiagnosisException extends GenericQueryDiagnosisException
 {
-    public function __construct(
-        protected array|string $contains,
-        QueryExecuted $executedQuery,
-        Collection $explainResult
-    ) {
+    public function __construct(public array|string $contains, QueryExecuted $executedQuery, Collection $explainResult)
+    {
         parent::__construct($executedQuery, $explainResult);
     }
 }

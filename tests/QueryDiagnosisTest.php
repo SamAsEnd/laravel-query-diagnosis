@@ -2,9 +2,9 @@
 
 namespace SamAsEnd\QueryDiagnosis\Tests;
 
+use QueryDiagnosis;
 use SamAsEnd\QueryDiagnosis\Exceptions\JoinTypeDiagnosisException;
 use SamAsEnd\QueryDiagnosis\Exceptions\SelectTypeContainsDiagnosisException;
-use SamAsEnd\QueryDiagnosis\QueryDiagnosis;
 use SamAsEnd\QueryDiagnosis\Tests\Models\Author;
 use SamAsEnd\QueryDiagnosis\Tests\Models\Post;
 use SamAsEnd\QueryDiagnosis\Tests\Models\Profile;

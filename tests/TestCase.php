@@ -3,7 +3,9 @@
 namespace SamAsEnd\QueryDiagnosis\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
-use SamAsEnd\QueryDiagnosis\QueryDiagnosis;
+use SamAsEnd\QueryDiagnosis\Facades\QueryDiagnosis;
+use SamAsEnd\QueryDiagnosis\QueryDiagnosisServiceProvider;
+use SamAsEnd\QueryDiagnosis\Tests\Seeder\TestSeeder;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -15,28 +17,44 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         $this->setUpDatabase();
 
-        QueryDiagnosis::resetForTesting();
+        $this->withFactories(__DIR__.'/Factories/');
+
+        $this->seed(TestSeeder::class);
     }
 
-    protected function getEnvironmentSetUp($app)
+    protected function getPackageProviders($app): array
     {
-        $app['config']->set('database.default', 'mysql');
+        return [QueryDiagnosisServiceProvider::class];
+    }
 
-        $app['config']->set('database.connections.mysql', [
+    protected function getPackageAliases($app): array
+    {
+        return [
+            'QueryDiagnosis' => QueryDiagnosis::class,
+        ];
+    }
+
+    protected function defineEnvironment($app): void
+    {
+        $app['config']->set('database.default', 'testbench');
+
+        $app['config']->set('database.connections.testbench', [
+                'driver' => 'mysql',
                 'database' => 'querydiagnosis',
             ] + $app['config']->get('database.connections.mysql'));
 
         $app['config']->set('app.key', 'base64:6Cu/ozj4gPtIjmXjr8EdVnGFNsdRqZfHfVjQkmTlg4Y=');
     }
 
-    protected function setUpDatabase()
+    protected function setUpDatabase(): void
     {
         $this->app['db']->connection()->getSchemaBuilder()->dropAllTables();
 
         $this->app['db']->connection()->getSchemaBuilder()->create('authors', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->text('bio');
+            $table->string('name')->index()->nullable();
+            $table->string('email')->unique();
+            $table->text('bio')->fulltext();
             $table->timestamps();
         });
 
@@ -60,7 +78,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
         $this->app['db']->connection()->getSchemaBuilder()->create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('body');
+            $table->text('body');
             $table->morphs('commentable');
         });
     }

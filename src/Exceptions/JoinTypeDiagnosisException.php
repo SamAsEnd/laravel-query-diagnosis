@@ -8,11 +8,8 @@ use SamAsEnd\QueryDiagnosis\Enums\JoinType;
 
 class JoinTypeDiagnosisException extends GenericQueryDiagnosisException
 {
-    public function __construct(
-        protected JoinType $joinType,
-        QueryExecuted $executedQuery,
-        Collection $explainResult
-    ) {
+    public function __construct(public JoinType $joinType, QueryExecuted $executedQuery, Collection $explainResult)
+    {
         parent::__construct($executedQuery, $explainResult);
     }
 }

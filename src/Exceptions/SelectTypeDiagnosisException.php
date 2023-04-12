@@ -8,11 +8,8 @@ use SamAsEnd\QueryDiagnosis\Enums\SelectType;
 
 class SelectTypeDiagnosisException extends GenericQueryDiagnosisException
 {
-    public function __construct(
-        protected SelectType $joinType,
-        QueryExecuted $executedQuery,
-        Collection $explainResult
-    ) {
+    public function __construct(public SelectType $joinType, QueryExecuted $executedQuery, Collection $explainResult)
+    {
         parent::__construct($executedQuery, $explainResult);
     }
 }
