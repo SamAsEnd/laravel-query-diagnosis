@@ -1,0 +1,75 @@
+name: tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-22.04
+
+    services:
+      mysql:
+        image: mariadb:10
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: querydiagnosis
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    strategy:
+      fail-fast: true
+
+      matrix:
+        php: [ 8.1, 8.2 ]
+
+    name: PHP ${{ matrix.php }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          # Fetch 10 commits or Scrutinizer will throw ("Failed to retrieve commit parents. If you use a shallow git checkout, please checkout at least a depth of one."), see: RepositoryIntrospector at scrutinizer-ci/ocular GitHub repository
+          # 10 commits is an arbitrary value that is more than 1 commit
+          fetch-depth: 10
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, pdo_mysql
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2
+          coverage: xdebug
+
+        env:
+          fail-fast: true
+
+      - name: Install dependencies
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer update --prefer-stable --prefer-dist --no-interaction --no-progress
+
+      - name: Execute tests
+        run: vendor/bin/phpunit --coverage-clover coverage.clover
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          DB_USERNAME: root
+
+      - name: Upload Scrutinizer coverage
+        run: |
+          composer global require scrutinizer/ocular
+          ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
+
+      - name: Store artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: logs
+          path: |
+            vendor/orchestra/testbench-core/laravel/storage/logs
+            !vendor/**/.gitignore

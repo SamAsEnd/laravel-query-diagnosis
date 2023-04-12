@@ -1,7 +1,7 @@
 # Laravel Query Diagnosis
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/samasend/laravel-query-diagnosis.svg?style=flat-square)](https://packagist.org/packages/samasend/laravel-query-diagnosis)
-[![Build Status](https://img.shields.io/travis/samasend/laravel-query-diagnosis/master.svg?style=flat-square)](https://travis-ci.org/samasend/laravel-query-diagnosis)
+[![Build Status](https://github.com/SamAsEnd/laravel-query-diagnosis/actions/workflows/tests.yml/badge.svg)](https://github.com/SamAsEnd/laravel-query-diagnosis/actions/workflows/tests.yml)
 [![Quality Score](https://img.shields.io/scrutinizer/g/samasend/laravel-query-diagnosis.svg?style=flat-square)](https://scrutinizer-ci.com/g/samasend/laravel-query-diagnosis)
 [![Total Downloads](https://img.shields.io/packagist/dt/samasend/laravel-query-diagnosis.svg?style=flat-square)](https://packagist.org/packages/samasend/laravel-query-diagnosis)
 

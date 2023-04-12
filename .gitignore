@@ -3,4 +3,5 @@
 nbproject
 composer.lock
 coverage
+coverage.clover
 vendor
