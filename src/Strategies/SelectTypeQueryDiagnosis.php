@@ -17,7 +17,7 @@ class SelectTypeQueryDiagnosis extends QueryDiagnosisContract
     public function match(QueryExecuted $executedQuery, Collection $explainResult): bool
     {
         return $explainResult
-            ->filter(fn($result) => $result->select_type === $this->selectType->value)
+            ->filter(fn ($result) => $result->select_type === $this->selectType->value)
             ->isNotEmpty();
     }
 

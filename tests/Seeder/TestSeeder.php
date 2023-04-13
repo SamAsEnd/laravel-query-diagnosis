@@ -23,7 +23,7 @@ class TestSeeder extends Seeder
                 'author_id' => $author->id,
             ]);
 
-            $posts->each(fn(Post $post) => factory(Comment::class, 2)->create([
+            $posts->each(fn (Post $post) => factory(Comment::class, 2)->create([
                 'commentable_id' => $post->id,
                 'commentable_type' => Post::class,
             ]));

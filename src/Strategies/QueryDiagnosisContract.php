@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 abstract class QueryDiagnosisContract
 {
-    public abstract function match(QueryExecuted $executedQuery, Collection $explainResult): bool;
+    abstract public function match(QueryExecuted $executedQuery, Collection $explainResult): bool;
 
-    public abstract function report(QueryExecuted $executedQuery, Collection $explainResult): void;
+    abstract public function report(QueryExecuted $executedQuery, Collection $explainResult): void;
 }

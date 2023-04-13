@@ -14,7 +14,7 @@ class NegateQueryDiagnosis extends QueryDiagnosisContract
 
     public function match(QueryExecuted $executedQuery, Collection $explainResult): bool
     {
-        return !$this->queryDiagnosis->match($executedQuery, $explainResult);
+        return ! $this->queryDiagnosis->match($executedQuery, $explainResult);
     }
 
     public function report(QueryExecuted $executedQuery, Collection $explainResult): void

@@ -39,9 +39,9 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         $app['config']->set('database.default', 'testbench');
 
         $app['config']->set('database.connections.testbench', [
-                'driver' => 'mysql',
-                'database' => 'querydiagnosis',
-            ] + $app['config']->get('database.connections.mysql'));
+            'driver' => 'mysql',
+            'database' => 'querydiagnosis',
+        ] + $app['config']->get('database.connections.mysql'));
 
         $app['config']->set('app.key', 'base64:6Cu/ozj4gPtIjmXjr8EdVnGFNsdRqZfHfVjQkmTlg4Y=');
     }

@@ -101,7 +101,7 @@ enum JoinType: string
     case SYSTEM = 'system';
 
     /**
-     * This is similar as eq_ref, but used for sub queries that are transformed to key lookups
+     * This is similar as eq_ref, but used for sub queries that are transformed to key lookups.
      *
      * @link https://mariadb.com/kb/en/explain/#type-column
      * @link https://dev.mysql.com/doc/refman/8.0/en/explain-output.html#jointype_unique_subquery

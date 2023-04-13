@@ -14,7 +14,7 @@ class UnsupportedDatabaseDriverExceptionTest extends TestCase
     public function test_pgsql_driver_throw_exception()
     {
         $this->expectException(UnsupportedDatabaseDriverException::class);
-        $this->expectExceptionMessage("Only support mysql driver for now. (pgsql) given.");
+        $this->expectExceptionMessage('Only support mysql driver for now. (pgsql) given.');
 
         QueryDiagnosis::preventFullDatabaseScanQueries();
 
@@ -27,11 +27,11 @@ class UnsupportedDatabaseDriverExceptionTest extends TestCase
     public function test_sqlite_driver_throw_exception()
     {
         $this->expectException(UnsupportedDatabaseDriverException::class);
-        $this->expectExceptionMessage("Only support mysql driver for now. (sqlite) given.");
+        $this->expectExceptionMessage('Only support mysql driver for now. (sqlite) given.');
 
         QueryDiagnosis::preventFullDatabaseScanQueries();
 
-        if (!File::exists(database_path('database.sqlite'))) {
+        if (! File::exists(database_path('database.sqlite'))) {
             File::put(database_path('database.sqlite'), '');
         }
 
@@ -44,7 +44,7 @@ class UnsupportedDatabaseDriverExceptionTest extends TestCase
     public function test_sqlsrv_driver_throw_exception()
     {
         $this->expectException(UnsupportedDatabaseDriverException::class);
-        $this->expectExceptionMessage("Only support mysql driver for now. (sqlsrv) given.");
+        $this->expectExceptionMessage('Only support mysql driver for now. (sqlsrv) given.');
 
         QueryDiagnosis::preventFullDatabaseScanQueries();
 

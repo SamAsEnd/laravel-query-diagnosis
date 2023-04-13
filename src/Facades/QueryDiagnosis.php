@@ -9,7 +9,6 @@ use SamAsEnd\QueryDiagnosis\Strategies\QueryDiagnosisContract;
  * @method static preventUnionSelectTypes(): void
  * @method static preventFullDatabaseScanQueries(): void
  * @method static preventFullIndexScanQueries(): void
- *
  * @method static customQueryDiagnosis(QueryDiagnosisContract $queryDiagnosis): void
  */
 class QueryDiagnosis extends Facade
