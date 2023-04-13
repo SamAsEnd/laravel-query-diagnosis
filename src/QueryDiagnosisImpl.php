@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use SamAsEnd\QueryDiagnosis\Enums\JoinType;
+use SamAsEnd\QueryDiagnosis\Exceptions\UnsupportedDatabaseDriverException;
 use SamAsEnd\QueryDiagnosis\Strategies\JoinTypeQueryDiagnosis;
 use SamAsEnd\QueryDiagnosis\Strategies\QueryDiagnosisContract;
 use SamAsEnd\QueryDiagnosis\Strategies\SelectTypeContainsQueryDiagnosis;
@@ -83,6 +84,10 @@ class QueryDiagnosisImpl
 
     protected function diagnoseQuery(QueryExecuted $queryExecuted): void
     {
+        if ('mysql' !== ($driver = $queryExecuted->connection->getDriverName())) {
+            throw new UnsupportedDatabaseDriverException($driver);
+        }
+
         $explainResults = collect($queryExecuted->connection->select(
             self::EXPLAIN.$queryExecuted->sql,
             $queryExecuted->bindings
