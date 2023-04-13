@@ -21,7 +21,7 @@ enum JoinType: string
      * @link https://mariadb.com/kb/en/explain/#type-column
      * @link https://dev.mysql.com/doc/refman/8.0/en/explain-output.html#jointype_const
      */
-    case CONST = 'const';
+    case CONSTANT = 'const';
 
     /**
      * A unique index is used to find the rows. This is the best possible plan to find the row.

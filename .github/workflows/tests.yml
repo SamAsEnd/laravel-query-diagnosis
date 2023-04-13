@@ -1,4 +1,4 @@
-name: tests
+name: Tests
 
 on:
   push:
@@ -7,12 +7,13 @@ on:
   pull_request:
 
 jobs:
-  tests:
-    runs-on: ubuntu-22.04
+  phpunit:
+    name: PHP ${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.database }}
+    runs-on: ubuntu-latest
 
     services:
-      mysql:
-        image: mariadb:10
+      database:
+        image: ${{ matrix.database }}
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: querydiagnosis
@@ -22,11 +23,10 @@ jobs:
 
     strategy:
       fail-fast: true
-
       matrix:
         php: [ 8.1, 8.2 ]
-
-    name: PHP ${{ matrix.php }}
+        stability: [ prefer-lowest, prefer-stable ]
+        database: [ 'mysql:5.7', 'mysql:8', 'mariadb:10' ]
 
     steps:
       - name: Checkout code
@@ -53,23 +53,14 @@ jobs:
         with:
           timeout_minutes: 5
           max_attempts: 5
-          command: composer update --prefer-stable --prefer-dist --no-interaction --no-progress
+          command: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
         run: vendor/bin/phpunit --coverage-clover coverage.clover
         env:
-          DB_PORT: ${{ job.services.mysql.ports[3306] }}
           DB_USERNAME: root
 
       - name: Upload Scrutinizer coverage
         run: |
           composer global require scrutinizer/ocular
           ~/.composer/vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
-
-      - name: Store artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: logs
-          path: |
-            vendor/orchestra/testbench-core/laravel/storage/logs
-            !vendor/**/.gitignore
