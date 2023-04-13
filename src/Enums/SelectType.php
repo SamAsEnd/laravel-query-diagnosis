@@ -22,7 +22,7 @@ enum SelectType: string
     /**
      * The SUBQUERY is MATERIALIZED.
      * Materialized tables will be populated at first access and will be accessed by the primary key (= one key lookup).
-     * Number of rows in EXPLAIN shows the cost of populating the table
+     * Number of rows in EXPLAIN shows the cost of populating the table.
      */
     case MATERIALIZED = 'MATERIALIZED';
 
@@ -62,7 +62,7 @@ enum SelectType: string
     case UNION_RESULT = 'UNION RESULT';
 
     /**
-     * The SELECT uses a Lateral Derived optimization
+     * The SELECT uses a Lateral Derived optimization.
      */
     case LATERAL_DERIVED = 'LATERAL DERIVED';
 }

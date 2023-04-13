@@ -58,7 +58,7 @@ class QueryDiagnosisImpl
 
     protected function boot(): void
     {
-        if (!$this->booted) {
+        if (! $this->booted) {
             $this->booted = true;
 
             DB::listen(function (QueryExecuted $executedQuery) {

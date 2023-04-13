@@ -17,7 +17,7 @@ class SelectTypeContainsQueryDiagnosis extends QueryDiagnosisContract
     public function match(QueryExecuted $executedQuery, Collection $explainResult): bool
     {
         return $explainResult
-            ->filter(fn($result) => Str::contains($result->select_type, $this->needle, ignoreCase: true))
+            ->filter(fn ($result) => Str::contains($result->select_type, $this->needle, ignoreCase: true))
             ->isNotEmpty();
     }
 

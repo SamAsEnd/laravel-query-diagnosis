@@ -17,7 +17,7 @@ class JoinTypeQueryDiagnosis extends QueryDiagnosisContract
     public function match(QueryExecuted $executedQuery, Collection $explainResult): bool
     {
         return $explainResult
-            ->filter(fn($result) => $result->type === $this->joinType->value)
+            ->filter(fn ($result) => $result->type === $this->joinType->value)
             ->isNotEmpty();
     }
 
